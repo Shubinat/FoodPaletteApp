@@ -14,7 +14,6 @@ namespace FoodPaletteApp
     public partial class App : Application
     {
         public static Entities.FoodPaletteBaseEntities Context { get; set; } = new Entities.FoodPaletteBaseEntities();
-
         public static Entities.User AuthUser { get; set; }
     }
 }

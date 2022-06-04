@@ -18,7 +18,7 @@
                 <TextBlock Style="{StaticResource TBlockLabel}" Text="Пароль:" />
                 <PasswordBox x:Name="PBoxPassword"/>
             </StackPanel>
-            <Button Content="Войти" x:Name="BtnLogIn"/>
+            <Button Content="Войти" x:Name="BtnLogIn" Click="BtnLogIn_Click"/>
         </StackPanel>
     </Grid>
 </Page>

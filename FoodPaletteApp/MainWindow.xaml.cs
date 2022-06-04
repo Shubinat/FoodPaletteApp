@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FoodPaletteApp.Pages;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -28,7 +29,20 @@ namespace FoodPaletteApp
 
         private void FrameMain_ContentRendered(object sender, EventArgs e)
         {
+            if (FrameMain.Content is AuthPage)
+            {
+                BtnBack.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                BtnBack.Visibility = Visibility.Visible;
+            }
+        }
 
+        private void BtnBack_Click(object sender, RoutedEventArgs e)
+        {
+            if (FrameMain.CanGoBack)
+                FrameMain.GoBack();
         }
     }
 }

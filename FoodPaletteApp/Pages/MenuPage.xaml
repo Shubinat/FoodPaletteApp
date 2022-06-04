@@ -9,6 +9,10 @@
       Title="Выбор действия">
 
     <Grid>
-        
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Button Content="Рецепты блюд" x:Name="BtnDishes" Click="BtnDishes_Click"/>
+            <Button Content="Личный профиль" x:Name="BtnMyProfile" Click="BtnMyProfile_Click"/>
+            <Button Content="Статистика калорий" x:Name="BtnStat" Click="BtnStat_Click"/>
+        </StackPanel>
     </Grid>
 </Page>

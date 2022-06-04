@@ -20,5 +20,6 @@
         <Image Source="/Assets/logo.png" HorizontalAlignment="Left"/>
         <TextBlock Style="{StaticResource TBlockHeader}" Text="{Binding ElementName=FrameMain, Path=Content.Title}" HorizontalAlignment="Center"/>
         <Frame Grid.Row="2" x:Name="FrameMain" ContentRendered="FrameMain_ContentRendered" NavigationUIVisibility="Hidden"/>
+        <Button HorizontalAlignment="Left" VerticalAlignment="Center" Content="Назад" Grid.Row="4" x:Name="BtnBack" Click="BtnBack_Click"/>
     </Grid>
 </Window>

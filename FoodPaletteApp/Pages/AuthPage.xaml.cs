@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FoodPaletteApp.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,26 @@ namespace FoodPaletteApp.Pages
         public AuthPage()
         {
             InitializeComponent();
+        }
+
+        private void BtnLogIn_Click(object sender, RoutedEventArgs e)
+        {
+            if (!string.IsNullOrEmpty(TBoxLogin.Text) && !string.IsNullOrEmpty(PBoxPassword.Password))
+            {
+                if (App.Context.User.ToList().FirstOrDefault(x => x.Login == TBoxLogin.Text && x.Password == PBoxPassword.Password) is User user)
+                {
+                    App.AuthUser = user;
+                    NavigationService.Navigate(new MenuPage());
+                }
+                else
+                {
+                    MessageBox.Show("Неверный логин или пароль", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Заполните оба поля", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
     }
 }

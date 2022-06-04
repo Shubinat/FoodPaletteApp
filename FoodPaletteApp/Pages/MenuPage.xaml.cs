@@ -24,5 +24,20 @@ namespace FoodPaletteApp.Pages
         {
             InitializeComponent();
         }
+
+        private void BtnDishes_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void BtnMyProfile_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void BtnStat_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
