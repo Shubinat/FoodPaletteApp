@@ -27,7 +27,7 @@ namespace FoodPaletteApp.Pages
 
         private void BtnDishes_Click(object sender, RoutedEventArgs e)
         {
-
+            NavigationService.Navigate(new DishListPage());
         }
 
         private void BtnMyProfile_Click(object sender, RoutedEventArgs e)

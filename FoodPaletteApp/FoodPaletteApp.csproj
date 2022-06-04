@@ -81,6 +81,7 @@
     <Compile Include="Entities\DishMealPerDay.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Entities\DishPartial.cs" />
     <Compile Include="Entities\DishType.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -128,6 +129,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Pages\DishListPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\MenuPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -136,6 +141,9 @@
   <ItemGroup>
     <Compile Include="Pages\AuthPage.xaml.cs">
       <DependentUpon>AuthPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\DishListPage.xaml.cs">
+      <DependentUpon>DishListPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\MenuPage.xaml.cs">
       <DependentUpon>MenuPage.xaml</DependentUpon>
@@ -180,6 +188,7 @@
     <Resource Include="Assets\logo.png" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Assets\no_photo.jpg" />
     <Content Include="Entities\Model.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Model.Context.cs</LastGenOutput>
