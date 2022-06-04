@@ -1,0 +1,22 @@
+﻿<Window x:Class="FoodPaletteApp.Windows.AddEditProductDishWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FoodPaletteApp.Windows"
+        mc:Ignorable="d"
+        Title="Продукт" Height="150" Width="320" ResizeMode="NoResize">
+    <Grid>
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <TextBlock Style="{StaticResource TBlockLabel}" Text="Продукт:"/>
+                <ComboBox DisplayMemberPath="Name" x:Name="CBoxProduct"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <TextBlock Style="{StaticResource TBlockLabel}" Text="Количество:"/>
+                <TextBox x:Name="TBoxAmount"/>
+            </StackPanel>
+            <Button x:Name="BtnSave" Click="BtnSave_Click" Content="Сохранить"/>
+        </StackPanel>
+    </Grid>
+</Window>

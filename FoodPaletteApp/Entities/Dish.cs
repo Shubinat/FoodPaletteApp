@@ -17,7 +17,6 @@ namespace FoodPaletteApp.Entities
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Dish()
         {
-            this.DishMealPerDay = new HashSet<DishMealPerDay>();
             this.MealPerDay = new HashSet<MealPerDay>();
             this.ProductDish = new HashSet<ProductDish>();
         }
@@ -29,8 +28,6 @@ namespace FoodPaletteApp.Entities
         public string Description { get; set; }
     
         public virtual DishType DishType { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DishMealPerDay> DishMealPerDay { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MealPerDay> MealPerDay { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

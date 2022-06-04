@@ -16,7 +16,7 @@ namespace FoodPaletteApp.Entities
     {
         public int ProductID { get; set; }
         public int DishID { get; set; }
-        public string Amount { get; set; }
+        public double Amount { get; set; }
     
         public virtual Dish Dish { get; set; }
         public virtual Product Product { get; set; }

@@ -31,17 +31,21 @@ namespace FoodPaletteApp.Pages
 
         private void BtnDelete_Click(object sender, RoutedEventArgs e)
         {
-
+            var dish = LviewDishes.SelectedItem as Entities.Dish;
+            App.Context.Dish.Remove(dish);
+            App.Context.SaveChanges();
+            UpdateGrid();
         }
 
         private void BtnEdit_Click(object sender, RoutedEventArgs e)
         {
-
+            var dish = LviewDishes.SelectedItem as Entities.Dish;
+            NavigationService.Navigate(new DishEditorPage(dish));
         }
 
         private void BtnAdd_Click(object sender, RoutedEventArgs e)
         {
-
+            NavigationService.Navigate(new DishEditorPage());
         }
 
         private void CBoxDishType_SelectionChanged(object sender, SelectionChangedEventArgs e)
