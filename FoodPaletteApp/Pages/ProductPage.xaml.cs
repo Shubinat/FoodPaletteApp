@@ -1,4 +1,5 @@
 ﻿using FoodPaletteApp.Entities;
+using mshtml;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,61 +25,188 @@ namespace FoodPaletteApp.Pages
         public ProductPage()
         {
             InitializeComponent();
-            LViewProducts.ItemsSource = App.Context.Product.ToList();
-            List<Entities.ProductType> productType = App.Context.ProductType.ToList();
-            productType.Insert(0, new Entities.ProductType() { Name = "Все" });
-            CBoxProductType.ItemsSource = productType;
-            CBoxProductType.SelectedIndex = 0;
+            List<MealPerDay> mealPerDays = App.Context.MealPerDay.ToList();
+            ListCollectionView view = new ListCollectionView(mealPerDays.OrderByDescending(x => x.DateTime).ToList());
+            
+            view.GroupDescriptions.Add(new PropertyGroupDescription("DateText"));
+            DGridDishesPerDay.ItemsSource = view;
+
+
         }
         private void UpdateList()
         {
-            List<Product> products = App.Context.Product.ToList();
-
+            List<MealPerDay> mealPerDays = App.Context.MealPerDay.ToList();
             if (!string.IsNullOrWhiteSpace(TBoxSearch.Text))
-                products = products.Where(x => x.Name.ToLower().Contains(TBoxSearch.Text.ToLower()) ||
+                mealPerDays = mealPerDays.Where(x => x.Dish.Name.ToLower().Contains(TBoxSearch.Text.ToLower())).ToList();
 
-                x.ProductType.Name.ToLower().Contains(TBoxSearch.Text.ToLower()) ||
-                x.Calories.ToString().Contains(TBoxSearch.Text.ToLower())).ToList();
+            if (DPickerDate.SelectedDate != null)
+                mealPerDays = mealPerDays.Where(x => x.DateTime.Date == DPickerDate.SelectedDate.Value.Date).ToList();
 
-            if (CBoxProductType.SelectedIndex == 0)
-            {
-                LViewProducts.ItemsSource = products;
-            }
-            else
-            {
-                products = products.Where(x => x.ProductType == CBoxProductType.SelectedItem as ProductType).ToList();
-            }
-            LViewProducts.ItemsSource = products;
+            mealPerDays = mealPerDays.OrderByDescending(x => x.DateTime).ToList();
+
+            ListCollectionView view = new ListCollectionView(mealPerDays);
+            view.GroupDescriptions.Add(new PropertyGroupDescription("DateText"));
+            DGridDishesPerDay.ItemsSource = view;
+
+
+            CreateTable(mealPerDays);
         }
+
+        private void CreateTable(List<MealPerDay> mealPerDays)
+        {
+            StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.Append("<html>");
+            stringBuilder.Append("<meta http-equiv='Content-Type' content='text/html;charset=UTF-8'><head></head>");
+            stringBuilder.Append("<body>");
+            stringBuilder.Append($"<p align=\"center\"><b>Отчет по блюдам</b></p>");
+
+            stringBuilder.Append("<table border=\"1\" align=\"center\">");
+
+            stringBuilder.Append("<tr>");
+
+
+            stringBuilder.Append("<th>");
+            stringBuilder.Append("Время");
+            stringBuilder.Append("</th>");
+
+            stringBuilder.Append("<th>");
+            stringBuilder.Append("Блюдо");
+            stringBuilder.Append("</th>");
+
+            stringBuilder.Append("<th>");
+            stringBuilder.Append("Белки");
+            stringBuilder.Append("</th>");
+
+            stringBuilder.Append("<th>");
+            stringBuilder.Append("Жиры");
+            stringBuilder.Append("</th>");
+
+            stringBuilder.Append("<th>");
+            stringBuilder.Append("Углеводы");
+            stringBuilder.Append("</th>");
+
+            stringBuilder.Append("<th>");
+            stringBuilder.Append("Калории");
+            stringBuilder.Append("</th>");
+
+            stringBuilder.Append("</tr>");
+            var mealPerDaysByDate = mealPerDays.GroupBy(x => x.DateText).ToList();
+            foreach (var mealPerDaysList in mealPerDaysByDate)
+            {
+                stringBuilder.Append("<tr>");
+
+
+                stringBuilder.Append($"<th colspan=\"6\">");
+                stringBuilder.Append(mealPerDaysList.Key);
+                stringBuilder.Append("</th>");
+
+                stringBuilder.Append("</tr>");
+                foreach (var item in mealPerDaysList)
+                {
+                    stringBuilder.Append("<tr>");
+                    stringBuilder.Append("<th>");
+                    stringBuilder.Append(item.TimeText);
+                    stringBuilder.Append("</th>");
+
+                    stringBuilder.Append("<th>");
+                    stringBuilder.Append(item.Dish.Name);
+                    stringBuilder.Append("</th>");
+
+                    stringBuilder.Append("<th>");
+                    stringBuilder.Append(item.Dish.Proteins);
+                    stringBuilder.Append("</th>");
+
+                    stringBuilder.Append("<th>");
+                    stringBuilder.Append(item.Dish.Fats);
+                    stringBuilder.Append("</th>");
+
+                    stringBuilder.Append("<th>");
+                    stringBuilder.Append(item.Dish.Carbohydrates);
+                    stringBuilder.Append("</th>");
+
+                    stringBuilder.Append("<th>");
+                    stringBuilder.Append(item.Dish.Calories);
+                    stringBuilder.Append("</th>");
+                    stringBuilder.Append("</tr>");
+                }
+            }
+            stringBuilder.Append("<tr>");
+            stringBuilder.Append("<th colspan=\"2\">");
+            stringBuilder.Append("ИТОГО");
+            stringBuilder.Append("</th>");
+
+            stringBuilder.Append("<th>");
+            stringBuilder.Append(mealPerDays.Sum(x=> x.Dish.Proteins));
+            stringBuilder.Append("</th>");
+
+            stringBuilder.Append("<th>");
+            stringBuilder.Append(mealPerDays.Sum(x => x.Dish.Fats));
+            stringBuilder.Append("</th>");
+
+            stringBuilder.Append("<th>");
+            stringBuilder.Append(mealPerDays.Sum(x => x.Dish.Carbohydrates));
+            stringBuilder.Append("</th>");
+
+            stringBuilder.Append("<th>");
+            stringBuilder.Append(mealPerDays.Sum(x => x.Dish.Calories));
+            stringBuilder.Append("</th>");
+
+            stringBuilder.Append("</tr>");
+
+            stringBuilder.Append("</table>");
+            stringBuilder.Append("<br>");
+            stringBuilder.Append("</body>");
+            stringBuilder.Append("</html>");
+            WBrowserReport.NavigateToString(stringBuilder.ToString());
+        }
+
         private void TBoxSearch_TextChanged(object sender, TextChangedEventArgs e)
         {
             UpdateList();
         }
-
-        private void BtnDelete_Click(object sender, RoutedEventArgs e)
+        private void CBoxProductType_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
-        }
-
-        private void BtnEdit_Click(object sender, RoutedEventArgs e)
-        {
-
+            UpdateList();
         }
 
         private void BtnAdd_Click(object sender, RoutedEventArgs e)
         {
-
+            var window = new Windows.SelectDishWindow();
+            if (window.ShowDialog() == true)
+            {
+                MealPerDay mealPerDay = new MealPerDay() { DateTime = DateTime.Now, User = App.AuthUser, Dish = window.SelectedDish};
+                App.Context.MealPerDay.Add(mealPerDay);
+                App.Context.SaveChanges();
+                UpdateList();
+            }
         }
 
-        private void LViewProducts_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void BtnRemove_Click(object sender, RoutedEventArgs e)
         {
-
-            var value = LViewProducts.SelectedItem != null;
-            BtnDelete.IsEnabled = value;
-            BtnEdit.IsEnabled = value;
+            var mealPerDay = DGridDishesPerDay.SelectedItem as MealPerDay;
+            App.Context.MealPerDay.Remove(mealPerDay);
+            App.Context.SaveChanges();
+            UpdateList();
         }
 
-        private void CBoxProductType_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void BtnPrint_Click(object sender, RoutedEventArgs e)
+        {
+            var doc = WBrowserReport.Document as IHTMLDocument2;
+            doc.execCommand("Print");
+        }
+
+        private void DGridDishesPerDay_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var value = DGridDishesPerDay.SelectedItem != null;
+            BtnRemove.IsEnabled = value;
+        }
+
+        private void DPickerDate_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            UpdateList();
+        }
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             UpdateList();
         }

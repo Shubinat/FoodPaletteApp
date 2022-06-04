@@ -27,7 +27,7 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Date" Type="date" Nullable="false" />
+          <Property Name="DateTime" Type="datetime" Nullable="false" />
           <Property Name="UserID" Type="int" Nullable="false" />
           <Property Name="DishID" Type="int" Nullable="false" />
         </EntityType>
@@ -271,7 +271,7 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="DateTime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="UserID" Type="Int32" Nullable="false" />
           <Property Name="DishID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Dish" Relationship="FoodPaletteBaseModel.FK_MealPerDay_Dish" FromRole="MealPerDay" ToRole="Dish" />
@@ -449,7 +449,7 @@
               <MappingFragment StoreEntitySet="MealPerDay">
                 <ScalarProperty Name="DishID" ColumnName="DishID" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
-                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="DateTime" ColumnName="DateTime" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>

@@ -15,7 +15,7 @@ namespace FoodPaletteApp.Entities
     public partial class MealPerDay
     {
         public int ID { get; set; }
-        public System.DateTime Date { get; set; }
+        public System.DateTime DateTime { get; set; }
         public int UserID { get; set; }
         public int DishID { get; set; }
     
