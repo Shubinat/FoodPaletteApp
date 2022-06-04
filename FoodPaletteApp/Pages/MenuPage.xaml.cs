@@ -32,6 +32,7 @@ namespace FoodPaletteApp.Pages
 
         private void BtnMyProfile_Click(object sender, RoutedEventArgs e)
         {
+            NavigationService.Navigate(new ProfilePage());
 
         }
 
