@@ -4,11 +4,38 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:FoodPaletteApp.Pages"
+      xmlns:chart="clr-namespace:System.Windows.Forms.DataVisualization.Charting;assembly=System.Windows.Forms.DataVisualization"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="Анализ калорий">
+      Title="Анализ калорий" Loaded="Page_Loaded">
 
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+            <CheckBox x:Name="ChBoxCalories" Content="Калории" VerticalContentAlignment="Center" VerticalAlignment="Center" Margin="10" Click="ChBoxCalories_Click" IsChecked="True"/>
+            <CheckBox x:Name="ChBoxProteins" Content="Белки" VerticalContentAlignment="Center" VerticalAlignment="Center" Margin="10" Click="ChBoxProteins_Click"/>
+            <CheckBox x:Name="ChBoxFats" Content="Жиры" VerticalContentAlignment="Center" VerticalAlignment="Center" Margin="10" Click="ChBoxFats_Click"/>
+            <CheckBox x:Name="ChBoxCarbohydrates" Content="Углеводы" VerticalContentAlignment="Center" VerticalAlignment="Center" Margin="10" Click="ChBoxCarbohydrates_Click"/>
+        </StackPanel>
+        
+        <WindowsFormsHost Grid.Row="1" x:Name="WinFormsHost" Padding="5">
+            <chart:Chart x:Name="CaloriesStat" Margin="10,10,10,10">
+                <chart:Chart.Legends>
+                    <chart:Legend/>
+                </chart:Chart.Legends>
+                
+                <chart:Chart.ChartAreas>
+                    <chart:ChartArea >
+                    </chart:ChartArea>
+                </chart:Chart.ChartAreas>
+            </chart:Chart>
+        </WindowsFormsHost>
+        <Button Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Center" Content="Печать" x:Name="BtnPrint" Click="BtnPrint_Click"/>
+        
         
     </Grid>
 </Page>
