@@ -72,5 +72,27 @@ namespace FoodPaletteApp.Pages
 
             }
         }
+
+
+        private void BtnCheckIMT_Click(object sender, RoutedEventArgs e)
+        {
+            int imt = Convert.ToInt32(TBoxHeight.Text) - 110;
+            int weight = Convert.ToInt32(TBoxWeight.Text);
+
+            if (weight+5>=imt && imt>=weight-5)
+            {
+                TBlockIMT.Text = "Идеальная масса тела";
+
+            }
+            else if (weight < imt)
+            {
+                TBlockIMT.Text = "Недостаточная масса тела";
+            }
+            else if (weight > imt)
+            {
+                TBlockIMT.Text = "Избыточная масса тела";
+
+            }
+        }
     }
 }

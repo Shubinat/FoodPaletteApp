@@ -38,6 +38,13 @@ namespace FoodPaletteApp.Pages
 
         private void BtnStat_Click(object sender, RoutedEventArgs e)
         {
+            NavigationService.Navigate(new CaloriesStatPage());
+
+        }
+
+        private void BtnProducts_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new ProductPage());
 
         }
     }

@@ -23,7 +23,9 @@ namespace FoodPaletteApp.Entities
         public int ID { get; set; }
         public System.DateTime Date { get; set; }
         public int UserID { get; set; }
+        public int DishID { get; set; }
     
+        public virtual Dish Dish { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DishMealPerDay> DishMealPerDay { get; set; }
         public virtual User User { get; set; }

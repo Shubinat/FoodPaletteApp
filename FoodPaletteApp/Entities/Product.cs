@@ -28,6 +28,7 @@ namespace FoodPaletteApp.Entities
         public double Calories { get; set; }
         public int ProductTypeID { get; set; }
         public int UnitID { get; set; }
+        public byte[] Picture { get; set; }
     
         public virtual ProductType ProductType { get; set; }
         public virtual Unit Unit { get; set; }

@@ -18,6 +18,7 @@ namespace FoodPaletteApp.Entities
         public Dish()
         {
             this.DishMealPerDay = new HashSet<DishMealPerDay>();
+            this.MealPerDay = new HashSet<MealPerDay>();
             this.ProductDish = new HashSet<ProductDish>();
         }
     
@@ -30,6 +31,8 @@ namespace FoodPaletteApp.Entities
         public virtual DishType DishType { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DishMealPerDay> DishMealPerDay { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<MealPerDay> MealPerDay { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProductDish> ProductDish { get; set; }
     }

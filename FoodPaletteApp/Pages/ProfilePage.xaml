@@ -34,6 +34,7 @@
                 <TextBlock VerticalAlignment="Center" Margin="5">Вес:</TextBlock>
                 <TextBox Name="TBoxWeight"></TextBox>
             </StackPanel>
+            <TextBlock VerticalAlignment="Center" Margin="5" Name="TBlockIMT"></TextBlock>
             <StackPanel Orientation="Horizontal" Margin="5" HorizontalAlignment="Right">
                 <TextBlock VerticalAlignment="Center" Margin="5">Логин:</TextBlock>
                 <TextBox Name="TBoxLogin"></TextBox>
@@ -45,6 +46,9 @@
 
         </StackPanel>
 
-        <Button Content="Сохранить" Grid.ColumnSpan="2" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" x:Name="BtnSave" Click="BtnSave_Click"/>
+        <StackPanel Orientation="Horizontal" Grid.ColumnSpan="2" Grid.Row="1"  HorizontalAlignment="Center" VerticalAlignment="Center" >
+            <Button Content="Сохранить"  Width="200" x:Name="BtnSave" Click="BtnSave_Click"/>
+            <Button Content="Рассчитать ИМТ"  Width="200" x:Name="BtnCheckIMT" Click="BtnCheckIMT_Click"/>
+        </StackPanel>
     </Grid>
 </Page>
