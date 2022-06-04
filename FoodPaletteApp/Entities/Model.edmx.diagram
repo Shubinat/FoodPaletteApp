@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="81806cf00e1f400e9948658268084235" Name="Diagram1">
+        <EntityTypeShape EntityType="FoodPaletteBaseModel.Dish" Width="1.5" PointX="3" PointY="8.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="FoodPaletteBaseModel.DishMealPerDay" Width="1.5" PointX="10.25" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="FoodPaletteBaseModel.DishType" Width="1.5" PointX="0.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="FoodPaletteBaseModel.MealPerDay" Width="1.5" PointX="8" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="FoodPaletteBaseModel.Product" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="FoodPaletteBaseModel.ProductDish" Width="1.5" PointX="5.25" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="FoodPaletteBaseModel.ProductType" Width="1.5" PointX="0.75" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="FoodPaletteBaseModel.sysdiagrams" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="FoodPaletteBaseModel.Unit" Width="1.5" PointX="0.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="FoodPaletteBaseModel.User" Width="1.5" PointX="5.75" PointY="5" IsExpanded="true" />
+        <AssociationConnector Association="FoodPaletteBaseModel.FK_Dish_DishType" ManuallyRouted="false" />
+        <AssociationConnector Association="FoodPaletteBaseModel.FK_DishLunch_Dish" ManuallyRouted="false" />
+        <AssociationConnector Association="FoodPaletteBaseModel.FK_ProductDish_Dish" ManuallyRouted="false" />
+        <AssociationConnector Association="FoodPaletteBaseModel.FK_DishLunch_MealPerDay" ManuallyRouted="false" />
+        <AssociationConnector Association="FoodPaletteBaseModel.FK_MealPerDay_User" ManuallyRouted="false" />
+        <AssociationConnector Association="FoodPaletteBaseModel.FK_Product_ProductType" ManuallyRouted="false" />
+        <AssociationConnector Association="FoodPaletteBaseModel.FK_Product_Unit" ManuallyRouted="false" />
+        <AssociationConnector Association="FoodPaletteBaseModel.FK_ProductDish_Product" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

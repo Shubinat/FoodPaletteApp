@@ -1,0 +1,625 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище FoodPaletteBaseModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Dish">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="DishTypeID" Type="int" Nullable="false" />
+          <Property Name="Picture" Type="varbinary(max)" />
+          <Property Name="Description" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="DishMealPerDay">
+          <Key>
+            <PropertyRef Name="MealPerDayID" />
+            <PropertyRef Name="DishID" />
+          </Key>
+          <Property Name="MealPerDayID" Type="int" Nullable="false" />
+          <Property Name="DishID" Type="int" Nullable="false" />
+          <Property Name="Count" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DishType">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MealPerDay">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Date" Type="date" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Proteins" Type="float" Nullable="false" />
+          <Property Name="Fats" Type="float" Nullable="false" />
+          <Property Name="Carbohydrates" Type="float" Nullable="false" />
+          <Property Name="Calories" Type="float" Nullable="false" />
+          <Property Name="ProductTypeID" Type="int" Nullable="false" />
+          <Property Name="UnitID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ProductDish">
+          <Key>
+            <PropertyRef Name="ProductID" />
+            <PropertyRef Name="DishID" />
+          </Key>
+          <Property Name="ProductID" Type="int" Nullable="false" />
+          <Property Name="DishID" Type="int" Nullable="false" />
+          <Property Name="Amount" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ProductType">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Unit">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Surname" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Patronymic" Type="nvarchar" MaxLength="50" />
+          <Property Name="Login" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Weight" Type="float" Nullable="false" />
+          <Property Name="Height" Type="float" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Dish_DishType">
+          <End Role="DishType" Type="Self.DishType" Multiplicity="1" />
+          <End Role="Dish" Type="Self.Dish" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DishType">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Dish">
+              <PropertyRef Name="DishTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DishLunch_Dish">
+          <End Role="Dish" Type="Self.Dish" Multiplicity="1" />
+          <End Role="DishMealPerDay" Type="Self.DishMealPerDay" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Dish">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="DishMealPerDay">
+              <PropertyRef Name="DishID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DishLunch_MealPerDay">
+          <End Role="MealPerDay" Type="Self.MealPerDay" Multiplicity="1" />
+          <End Role="DishMealPerDay" Type="Self.DishMealPerDay" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MealPerDay">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="DishMealPerDay">
+              <PropertyRef Name="MealPerDayID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MealPerDay_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="MealPerDay" Type="Self.MealPerDay" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="MealPerDay">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Product_ProductType">
+          <End Role="ProductType" Type="Self.ProductType" Multiplicity="1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductType">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="ProductTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Product_Unit">
+          <End Role="Unit" Type="Self.Unit" Multiplicity="1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Unit">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="UnitID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductDish_Dish">
+          <End Role="Dish" Type="Self.Dish" Multiplicity="1" />
+          <End Role="ProductDish" Type="Self.ProductDish" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Dish">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ProductDish">
+              <PropertyRef Name="DishID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductDish_Product">
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="ProductDish" Type="Self.ProductDish" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ProductDish">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище FoodPaletteBaseModelContainer">
+          <EntitySet Name="Dish" EntityType="Self.Dish" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DishMealPerDay" EntityType="Self.DishMealPerDay" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DishType" EntityType="Self.DishType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MealPerDay" EntityType="Self.MealPerDay" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductDish" EntityType="Self.ProductDish" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductType" EntityType="Self.ProductType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Unit" EntityType="Self.Unit" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Dish_DishType" Association="Self.FK_Dish_DishType">
+            <End Role="DishType" EntitySet="DishType" />
+            <End Role="Dish" EntitySet="Dish" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DishLunch_Dish" Association="Self.FK_DishLunch_Dish">
+            <End Role="Dish" EntitySet="Dish" />
+            <End Role="DishMealPerDay" EntitySet="DishMealPerDay" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DishLunch_MealPerDay" Association="Self.FK_DishLunch_MealPerDay">
+            <End Role="MealPerDay" EntitySet="MealPerDay" />
+            <End Role="DishMealPerDay" EntitySet="DishMealPerDay" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MealPerDay_User" Association="Self.FK_MealPerDay_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="MealPerDay" EntitySet="MealPerDay" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Product_ProductType" Association="Self.FK_Product_ProductType">
+            <End Role="ProductType" EntitySet="ProductType" />
+            <End Role="Product" EntitySet="Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Product_Unit" Association="Self.FK_Product_Unit">
+            <End Role="Unit" EntitySet="Unit" />
+            <End Role="Product" EntitySet="Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductDish_Dish" Association="Self.FK_ProductDish_Dish">
+            <End Role="Dish" EntitySet="Dish" />
+            <End Role="ProductDish" EntitySet="ProductDish" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductDish_Product" Association="Self.FK_ProductDish_Product">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="ProductDish" EntitySet="ProductDish" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="FoodPaletteBaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Dish">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DishTypeID" Type="Int32" Nullable="false" />
+          <Property Name="Picture" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="DishType" Relationship="Self.FK_Dish_DishType" FromRole="Dish" ToRole="DishType" />
+          <NavigationProperty Name="DishMealPerDay" Relationship="Self.FK_DishLunch_Dish" FromRole="Dish" ToRole="DishMealPerDay" />
+          <NavigationProperty Name="ProductDish" Relationship="Self.FK_ProductDish_Dish" FromRole="Dish" ToRole="ProductDish" />
+        </EntityType>
+        <EntityType Name="DishMealPerDay">
+          <Key>
+            <PropertyRef Name="MealPerDayID" />
+            <PropertyRef Name="DishID" />
+          </Key>
+          <Property Name="MealPerDayID" Type="Int32" Nullable="false" />
+          <Property Name="DishID" Type="Int32" Nullable="false" />
+          <Property Name="Count" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Dish" Relationship="Self.FK_DishLunch_Dish" FromRole="DishMealPerDay" ToRole="Dish" />
+          <NavigationProperty Name="MealPerDay" Relationship="Self.FK_DishLunch_MealPerDay" FromRole="DishMealPerDay" ToRole="MealPerDay" />
+        </EntityType>
+        <EntityType Name="DishType">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Dish" Relationship="Self.FK_Dish_DishType" FromRole="DishType" ToRole="Dish" />
+        </EntityType>
+        <EntityType Name="MealPerDay">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="DishMealPerDay" Relationship="Self.FK_DishLunch_MealPerDay" FromRole="MealPerDay" ToRole="DishMealPerDay" />
+          <NavigationProperty Name="User" Relationship="Self.FK_MealPerDay_User" FromRole="MealPerDay" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Proteins" Type="Double" Nullable="false" />
+          <Property Name="Fats" Type="Double" Nullable="false" />
+          <Property Name="Carbohydrates" Type="Double" Nullable="false" />
+          <Property Name="Calories" Type="Double" Nullable="false" />
+          <Property Name="ProductTypeID" Type="Int32" Nullable="false" />
+          <Property Name="UnitID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="ProductType" Relationship="Self.FK_Product_ProductType" FromRole="Product" ToRole="ProductType" />
+          <NavigationProperty Name="Unit" Relationship="Self.FK_Product_Unit" FromRole="Product" ToRole="Unit" />
+          <NavigationProperty Name="ProductDish" Relationship="Self.FK_ProductDish_Product" FromRole="Product" ToRole="ProductDish" />
+        </EntityType>
+        <EntityType Name="ProductDish">
+          <Key>
+            <PropertyRef Name="ProductID" />
+            <PropertyRef Name="DishID" />
+          </Key>
+          <Property Name="ProductID" Type="Int32" Nullable="false" />
+          <Property Name="DishID" Type="Int32" Nullable="false" />
+          <Property Name="Amount" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Dish" Relationship="Self.FK_ProductDish_Dish" FromRole="ProductDish" ToRole="Dish" />
+          <NavigationProperty Name="Product" Relationship="Self.FK_ProductDish_Product" FromRole="ProductDish" ToRole="Product" />
+        </EntityType>
+        <EntityType Name="ProductType">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Product" Relationship="Self.FK_Product_ProductType" FromRole="ProductType" ToRole="Product" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Unit">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Product" Relationship="Self.FK_Product_Unit" FromRole="Unit" ToRole="Product" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Surname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Patronymic" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Login" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Weight" Type="Double" Nullable="false" />
+          <Property Name="Height" Type="Double" Nullable="false" />
+          <NavigationProperty Name="MealPerDay" Relationship="Self.FK_MealPerDay_User" FromRole="User" ToRole="MealPerDay" />
+        </EntityType>
+        <Association Name="FK_Dish_DishType">
+          <End Role="DishType" Type="Self.DishType" Multiplicity="1" />
+          <End Role="Dish" Type="Self.Dish" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DishType">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Dish">
+              <PropertyRef Name="DishTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DishLunch_Dish">
+          <End Role="Dish" Type="Self.Dish" Multiplicity="1" />
+          <End Role="DishMealPerDay" Type="Self.DishMealPerDay" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Dish">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="DishMealPerDay">
+              <PropertyRef Name="DishID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductDish_Dish">
+          <End Role="Dish" Type="Self.Dish" Multiplicity="1" />
+          <End Role="ProductDish" Type="Self.ProductDish" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Dish">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ProductDish">
+              <PropertyRef Name="DishID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DishLunch_MealPerDay">
+          <End Role="MealPerDay" Type="Self.MealPerDay" Multiplicity="1" />
+          <End Role="DishMealPerDay" Type="Self.DishMealPerDay" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MealPerDay">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="DishMealPerDay">
+              <PropertyRef Name="MealPerDayID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MealPerDay_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="MealPerDay" Type="Self.MealPerDay" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="MealPerDay">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Product_ProductType">
+          <End Role="ProductType" Type="Self.ProductType" Multiplicity="1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductType">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="ProductTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Product_Unit">
+          <End Role="Unit" Type="Self.Unit" Multiplicity="1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Unit">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="UnitID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductDish_Product">
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="ProductDish" Type="Self.ProductDish" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ProductDish">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="FoodPaletteBaseEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Dish" EntityType="Self.Dish" />
+          <EntitySet Name="DishMealPerDay" EntityType="Self.DishMealPerDay" />
+          <EntitySet Name="DishType" EntityType="Self.DishType" />
+          <EntitySet Name="MealPerDay" EntityType="Self.MealPerDay" />
+          <EntitySet Name="Product" EntityType="Self.Product" />
+          <EntitySet Name="ProductDish" EntityType="Self.ProductDish" />
+          <EntitySet Name="ProductType" EntityType="Self.ProductType" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="Unit" EntityType="Self.Unit" />
+          <EntitySet Name="User" EntityType="Self.User" />
+          <AssociationSet Name="FK_Dish_DishType" Association="Self.FK_Dish_DishType">
+            <End Role="DishType" EntitySet="DishType" />
+            <End Role="Dish" EntitySet="Dish" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DishLunch_Dish" Association="Self.FK_DishLunch_Dish">
+            <End Role="Dish" EntitySet="Dish" />
+            <End Role="DishMealPerDay" EntitySet="DishMealPerDay" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductDish_Dish" Association="Self.FK_ProductDish_Dish">
+            <End Role="Dish" EntitySet="Dish" />
+            <End Role="ProductDish" EntitySet="ProductDish" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DishLunch_MealPerDay" Association="Self.FK_DishLunch_MealPerDay">
+            <End Role="MealPerDay" EntitySet="MealPerDay" />
+            <End Role="DishMealPerDay" EntitySet="DishMealPerDay" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MealPerDay_User" Association="Self.FK_MealPerDay_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="MealPerDay" EntitySet="MealPerDay" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Product_ProductType" Association="Self.FK_Product_ProductType">
+            <End Role="ProductType" EntitySet="ProductType" />
+            <End Role="Product" EntitySet="Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Product_Unit" Association="Self.FK_Product_Unit">
+            <End Role="Unit" EntitySet="Unit" />
+            <End Role="Product" EntitySet="Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductDish_Product" Association="Self.FK_ProductDish_Product">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="ProductDish" EntitySet="ProductDish" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище FoodPaletteBaseModelContainer" CdmEntityContainer="FoodPaletteBaseEntities">
+          <EntitySetMapping Name="Dish">
+            <EntityTypeMapping TypeName="FoodPaletteBaseModel.Dish">
+              <MappingFragment StoreEntitySet="Dish">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="DishTypeID" ColumnName="DishTypeID" />
+                <ScalarProperty Name="Picture" ColumnName="Picture" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DishMealPerDay">
+            <EntityTypeMapping TypeName="FoodPaletteBaseModel.DishMealPerDay">
+              <MappingFragment StoreEntitySet="DishMealPerDay">
+                <ScalarProperty Name="MealPerDayID" ColumnName="MealPerDayID" />
+                <ScalarProperty Name="DishID" ColumnName="DishID" />
+                <ScalarProperty Name="Count" ColumnName="Count" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DishType">
+            <EntityTypeMapping TypeName="FoodPaletteBaseModel.DishType">
+              <MappingFragment StoreEntitySet="DishType">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MealPerDay">
+            <EntityTypeMapping TypeName="FoodPaletteBaseModel.MealPerDay">
+              <MappingFragment StoreEntitySet="MealPerDay">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Product">
+            <EntityTypeMapping TypeName="FoodPaletteBaseModel.Product">
+              <MappingFragment StoreEntitySet="Product">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Proteins" ColumnName="Proteins" />
+                <ScalarProperty Name="Fats" ColumnName="Fats" />
+                <ScalarProperty Name="Carbohydrates" ColumnName="Carbohydrates" />
+                <ScalarProperty Name="Calories" ColumnName="Calories" />
+                <ScalarProperty Name="ProductTypeID" ColumnName="ProductTypeID" />
+                <ScalarProperty Name="UnitID" ColumnName="UnitID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductDish">
+            <EntityTypeMapping TypeName="FoodPaletteBaseModel.ProductDish">
+              <MappingFragment StoreEntitySet="ProductDish">
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="DishID" ColumnName="DishID" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductType">
+            <EntityTypeMapping TypeName="FoodPaletteBaseModel.ProductType">
+              <MappingFragment StoreEntitySet="ProductType">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="FoodPaletteBaseModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Unit">
+            <EntityTypeMapping TypeName="FoodPaletteBaseModel.Unit">
+              <MappingFragment StoreEntitySet="Unit">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="User">
+            <EntityTypeMapping TypeName="FoodPaletteBaseModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Patronymic" ColumnName="Patronymic" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Weight" ColumnName="Weight" />
+                <ScalarProperty Name="Height" ColumnName="Height" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
