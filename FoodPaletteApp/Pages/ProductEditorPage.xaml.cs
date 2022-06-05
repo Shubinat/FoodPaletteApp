@@ -30,6 +30,7 @@ namespace FoodPaletteApp.Pages
             InitializeComponent();
             _product = product;
             CBoxType.ItemsSource = App.Context.ProductType.ToList();
+            CBoxUnit.ItemsSource = App.Context.Unit.ToList();
             if (product != null)
             {
                 _photo = _product.Picture;
@@ -72,7 +73,7 @@ namespace FoodPaletteApp.Pages
                     _product = new Product();
 
                 _product.ProductType = CBoxType.SelectedItem as ProductType;
-                _product.Unit = CBoxType.SelectedItem as Unit;
+                _product.Unit = CBoxUnit.SelectedItem as Unit;
                 _product.Name = TBoxName.Text;
                 _product.Calories = Convert.ToInt32(TBoxCalories.Text);
                 _product.Proteins = Convert.ToInt32(TBoxProteins.Text);

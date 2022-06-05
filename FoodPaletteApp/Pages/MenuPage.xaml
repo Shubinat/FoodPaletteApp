@@ -10,10 +10,15 @@
 
     <Grid>
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-            <Button Content="Рецепты блюд" x:Name="BtnDishes" Click="BtnDishes_Click"/>
-            <Button Content="Личный профиль" x:Name="BtnMyProfile" Click="BtnMyProfile_Click"/>
-            <Button Content="Моя еда сегодня" x:Name="BtnProducts" Click="BtnProducts_Click"/>
-            <Button Content="Статистика калорий" x:Name="BtnStat" Click="BtnStat_Click"/>
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation='Horizontal'>
+                <Button Content="Рецепты блюд" x:Name="BtnDishes" Click="BtnDishes_Click"/>
+                <Button Content="Личный профиль" x:Name="BtnMyProfile" Click="BtnMyProfile_Click"/>
+            </StackPanel>
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
+                <Button Content="Моя еда сегодня" x:Name="BtnProducts" Click="BtnProducts_Click"/>
+                <Button Content="Статистика калорий" x:Name="BtnStat" Click="BtnStat_Click"/>
+            </StackPanel>
+            <Button Content="Список продуктов" x:Name="BtnProductsList" Click="BtnProductsList_Click"/>
         </StackPanel>
     </Grid>
 </Page>

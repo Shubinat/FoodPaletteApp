@@ -47,5 +47,10 @@ namespace FoodPaletteApp.Pages
             NavigationService.Navigate(new ProductPage());
 
         }
+
+        private void BtnProductsList_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new ProductListPage());
+        }
     }
 }
